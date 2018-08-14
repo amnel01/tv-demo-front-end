@@ -1,0 +1,17 @@
+/**** SECTION 2 (Preview Page) *****/
+
+section:nth-child(2) div:first-child {
+    display: flex;
+    justify-content: space-around;
+    margin: 0 0 20px;
+}
+
+section:nth-child(2) div:last-child {
+    display: flex;
+    justify-content: center; /* align horizontal */
+    align-items: center; /* align vertical */
+}
+
+ section:nth-child(2) div:last-child img:nth-child(2) {
+
+ }
