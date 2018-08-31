@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './App.css'
 import NavSite from './NavSite'
+import TVShow from './TVShow'
 
 class PreviewPage extends Component {
     render() {
@@ -14,8 +15,7 @@ class PreviewPage extends Component {
                         <h3>Show Titles</h3>
                         <ul>
                             <li>
-                                <button>Show 1</button>
-                                <img src="./delete_button.png"></img>
+                                <TVShow name="Stranger Things" allowDelete={false}/>
                             </li>
                         </ul>
                     </section>

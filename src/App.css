@@ -19,6 +19,7 @@ nav a {
   align-items: center;
   height: 100px;
   flex-grow: 1;
+  font-size: 20px;
 }
 
 nav a:first-child {
@@ -47,24 +48,26 @@ main {
   margin: 0px 0px 15px;
 }
 
-
 .sidebar-nav  ul li {
+  list-style-type: none;
+}
+.sidebar-nav  ul li div {
   display: flex;
   justify-content: center; 
   align-items: center;
+  margin: 5px;
 }
 
 
 .sidebar-nav  ul li button {
-  list-style-type: none;
   padding: 10px;
-  margin: 10px;
   font-size: 16px;
   color: black;
 }
 
 .sidebar-nav img {
   height: 30px;
+  margin: 5px;
 }
 
 /*****SECTION 2******/
@@ -76,7 +79,6 @@ main {
 /**** MAIN - FORM (Manage Page) *****/
 
 .show-form div {
-  /* width: 400px; */
   border: solid 1px lightgray;
   margin: 20px;
   padding: 30px;
@@ -120,6 +122,6 @@ main {
 
 .show-preview div:last-child {
   display: flex;
-  justify-content: center; /* align horizontal */
-  align-items: center; /* align vertical */
+  justify-content: center;
+  align-items: center;
 }
