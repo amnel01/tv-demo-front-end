@@ -1,28 +1,125 @@
-.App {
-  text-align: center;
+* {
+  margin: 0;
+  padding: 0;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+/******* NAV HEADER ********/
+
+header {
+  border-bottom: solid 2px black;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
+nav {
+  display: flex;
+}
+
+nav a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  flex-grow: 1;
+}
+
+nav a:first-child {
+  border-right: solid 2px black;
+}
+
+
+/******* MAIN ********/
+
+main {
+  display: flex;
+}
+
+/**** MAIN - SIDE BAR *****/
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-right: solid 2px black;
+  width: 250px;
+  padding: 20px 0px 0px;
+}
+
+.sidebar-nav  h3 {
+  margin: 0px 0px 15px;
+}
+
+
+.sidebar-nav  ul li {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+}
+
+
+.sidebar-nav  ul li button {
+  list-style-type: none;
+  padding: 10px;
+  margin: 10px;
+  font-size: 16px;
+  color: black;
+}
+
+.sidebar-nav img {
+  height: 30px;
+}
+
+/*****SECTION 2******/
+.show-form, .show-preview {
+  width: 100%;
   padding: 20px;
-  color: white;
 }
 
-.App-title {
-  font-size: 1.5em;
+/**** MAIN - FORM (Manage Page) *****/
+
+.show-form div {
+  /* width: 400px; */
+  border: solid 1px lightgray;
+  margin: 20px;
+  padding: 30px;
+
 }
 
-.App-intro {
-  font-size: large;
+.show-form ul li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 8px 0px;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.show-form ul li label {
+  flex: 0 0 150px;
+  text-align: left;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.show-form ul li input {
+  flex: 0 0 220px;
+  height: 24px;
+  padding: 2px;
+  font-size: 16px;
+}
+
+.show-form button {
+  margin: 10px;
+  padding: 10px;
+  font-size: 16px;
+}
+
+/**** SECTION 2 (Preview Page) *****/
+
+.show-preview div:first-child {
+  display: flex;
+  justify-content: space-around;
+  margin: 0 0 20px;
+}
+
+.show-preview div:last-child {
+  display: flex;
+  justify-content: center; /* align horizontal */
+  align-items: center; /* align vertical */
 }
