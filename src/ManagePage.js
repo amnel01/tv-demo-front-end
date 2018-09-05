@@ -4,6 +4,19 @@ import NavSite from './NavSite'
 import TVShow from './TVShow'
 
 class ManagePage extends Component {
+    showSelected = () => {
+        console.log("showSelected")
+    }
+    
+    showDeleted = () => {
+        console.log("showDeleted")
+    }
+    
+    saveShow = () => {
+        console.log("saveShow")
+    }
+    
+    
     render() {
         return (
             <div>
@@ -15,7 +28,7 @@ class ManagePage extends Component {
                         <h3>Show Titles</h3>
                         <ul>
                             <li>
-                                <TVShow name="Stranger Things" allowDelete={true}/>
+                                <TVShow selectHandler={this.showSelected} deleteHandler={this.showDeleted} name="Stranger Things" allowDelete={true}/>
                             </li>
                         </ul>
                     </section>
@@ -37,7 +50,8 @@ class ManagePage extends Component {
                                     <input type="text" required/>
                                 </li>
                                 <li>
-                                    <button onclick="clickedSubmit()">Create/Edit</button>
+                                    <button onClick={this.saveShow}>Create/Edit</button>
+                                    {/* <input type="submit" value="Create/Edit"/> */}
                                 </li>
                             </ul>
                         </div>
