@@ -2,11 +2,13 @@ import React, { Component } from 'react'
 
 class TVShow extends Component {
     renderDelete = () => {
-        if (this.props.allowDelete) {    
+        if (this.props.allowDelete === true) {    
             // return <img src="./delete_button.png"></img> 
             return <button onClick={this.props.deleteHandler}>-</button>
         }
     }
+
+    
     
     render() {
         return (
