@@ -5,8 +5,8 @@ class TVShow extends Component {
     static propTypes = {
         name: PropTypes.string.isRequired,
         allowDelete: PropTypes.boolean,
-        selectHandler: PropTypes.function.isRequired,
-        deleteHandler:   PropTypes.function
+        selectHandler: PropTypes.func.isRequired,
+        deleteHandler:   PropTypes.func
     }
     
     renderDelete = () => {
