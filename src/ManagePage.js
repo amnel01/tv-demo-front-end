@@ -7,7 +7,8 @@ import TVShow from './TVShow'
 class ManagePage extends Component {
     static propTypes = {
         show: PropTypes.object.isRequired,
-        showDeleted: PropTypes.func.isRequired
+        showDeleted: PropTypes.func.isRequired,
+        tvShows: PropTypes.array.isRequired
     }
 
     state = {
@@ -61,9 +62,16 @@ class ManagePage extends Component {
     }
 
     renderShows = () => {
-        return (
-            <TVShow name={this.props.show.name} allowDelete={true} selectHandler={this.showSelected} deleteHandler={this.showDeleted} />
-        )
+        const showsToRender = []
+        // console.log(this.props.tvShows)
+        for (const tvShow of this.props.tvShows) {
+            // console.log(this.props.tvShow)
+            showsToRender.push(
+                <TVShow key={tvShow.name} name={tvShow.name} allowDelete={true} selectHandler={this.showSelected} deleteHandler={this.showDeleted} />
+            )
+        }
+        
+        return showsToRender
     }
 
     render() {
