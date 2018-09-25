@@ -1,20 +1,35 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 import './App.css'
 import NavSite from './NavSite'
 import TVShow from './TVShow'
 
 class ManagePage extends Component {
-    static propTypes = {
-        show: PropTypes.object.isRequired,
-        showDeleted: PropTypes.func.isRequired,
-        tvShows: PropTypes.array.isRequired
-    }
 
     state = {
         nameInProgress: '',
         ratingInProgress: '',
         urlInProgress: '',
+        show: {
+            name: '',
+            rating: '',
+            url: ''
+        }
+    }
+
+    componentDidMount () {
+        const postURL = 'http://localhost:3000/shows'
+        fetch(postURL, {
+            headers: {'Content-Type': 'application/json'}
+        }).then( (promise) => {
+            console.log(promise)
+        return promise.json()
+        }).then((response) => {
+            let res = response
+            console.log(res)
+            this.setState({tvShows:res})
+            return res
+        })
     }
 
     handleNameChange = (event) => {
@@ -36,42 +51,44 @@ class ManagePage extends Component {
     }
 
     showSelected = () => {
-        this.setState({
-            nameInProgress: this.props.show.name,
-            ratingInProgress: this.props.show.rating,
-            urlInProgress: this.props.show.url,
-        })
+
     }
 
     showDeleted = () => {
-        this.props.showDeleted()
     }
 
     saveShow = () => {
-        this.props.saveShow({
-            name: this.state.nameInProgress,
-            rating: this.state.ratingInProgress,
-            url: this.state.urlInProgress
-        })
-
-        this.setState({
-            nameInProgress: '',
-            ratingInProgress: '',
-            urlInProgress: '',
-        })
+        console.log(this.state)
+        const postURL = 'http://localhost:3000/shows'
+        let postBody = {
+                method: 'POST',
+                body: JSON.stringify(this.state),
+                headers:{
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+                }
+        }
+        fetch(postURL, postBody)
+        .then((response) => {
+            console.log(response)
+            return response.json()
+        }).then((tvShows) => {
+            console.log(tvShows)
+            this.setState({
+                tvShows
+            })
+        }).catch(error => console.log(error))
     }
 
     renderShows = () => {
-        const showsToRender = []
-        // console.log(this.props.tvShows)
-        for (const tvShow of this.props.tvShows) {
-            // console.log(this.props.tvShow)
-            showsToRender.push(
-                <TVShow key={tvShow.name} name={tvShow.name} allowDelete={true} selectHandler={this.showSelected} deleteHandler={this.showDeleted} />
+        if (this.state.tvShows)
+        return this.state.tvShows.map((show, i) => {
+            console.log()
+            return (
+                <TVShow key={i} name={show.nameInProgress} allowDelete={true} selectHandler={this.showSelected} deleteHandler={this.showDeleted} />
             )
         }
-        
-        return showsToRender
+        )
     }
 
     render() {

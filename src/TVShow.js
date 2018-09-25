@@ -6,7 +6,7 @@ class TVShow extends Component {
         name: PropTypes.string.isRequired,
         allowDelete: PropTypes.bool,
         selectHandler: PropTypes.func.isRequired,
-        deleteHandler:   PropTypes.func
+        deleteHandler: PropTypes.func
     }
     
     renderDelete = () => {

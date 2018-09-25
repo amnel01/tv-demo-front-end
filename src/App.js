@@ -24,7 +24,7 @@ class App extends Component {
   }
 
   renderPreviewPage = () => {
-    return (<PreviewPage show={this.state.show} />)
+    return (<PreviewPage tvShows={this.state.tvShows} show={this.state.show} />)
   }
 
   showDeleted = () => {
