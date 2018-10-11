@@ -17,20 +17,23 @@ class ManagePage extends Component {
         }
     }
 
-    componentDidMount () {
-        const postURL = 'http://localhost:3000/shows'
-        fetch(postURL, {
-            headers: {'Content-Type': 'application/json'}
-        }).then( (promise) => {
-            console.log(promise)
-        return promise.json()
-        }).then((response) => {
-            let res = response
-            console.log(res)
-            this.setState({tvShows:res})
-            return res
-        })
+    async componentDidMount () {
+        await this.getTVShows()
     }
+
+    getTVShows = async () => {
+        try {
+            const getURL = 'http://localhost:3001/shows'
+            const r = await fetch(getURL, {
+                method: 'GET',
+                headers: {'Content-Type': 'application/json'}
+            })
+            const tvShows = await r.json()
+            this.setState({tvShows})
+        } catch(err) {
+            return this.setState (err)
+        }
+    }  
 
     handleNameChange = (event) => {
         this.setState({
@@ -57,41 +60,64 @@ class ManagePage extends Component {
     showDeleted = () => {
     }
 
-    saveShow = () => {
-        console.log(this.state)
-        const postURL = 'http://localhost:3000/shows'
-        let postBody = {
-                method: 'POST',
-                body: JSON.stringify(this.state),
-                headers:{
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-                }
+    async postData () {
+        try {
+            const postURL = 'http://localhost:3001/shows'
+            const postBody = {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        name: this.state.nameInProgress,
+                        rating: this.state.ratingInProgress,
+                        url: this.state.urlInProgress
+                    }),
+                    headers:{
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                    }
+            }
+            const r = await fetch(postURL, postBody)
+            const body = await r.json()
+            if (r.status !== 200) {
+                const errMessage = body.details.map(item => item.message).join(', ')
+                throw new Error(errMessage)
+            }
+            
+            await this.getTVShows()
+        } catch(err) {
+            return this.setState({message: err.message})
         }
-        fetch(postURL, postBody)
-        .then((response) => {
-            console.log(response)
-            return response.json()
-        }).then((tvShows) => {
-            console.log(tvShows)
-            this.setState({
-                tvShows
-            })
-        }).catch(error => console.log(error))
+    }
+
+    showPostErrorMessage = () => {
+        if (this.state.message) {
+            return this.state.message
+        }
+    }
+
+    clearShowForm () {
+        this.setState({
+            nameInProgress: '',
+            ratingInProgress: '',
+            urlInProgress: '',
+        })
+    }
+
+    saveShow = () => {
+        this.postData()
+        this.clearShowForm()
     }
 
     renderShows = () => {
         if (this.state.tvShows)
         return this.state.tvShows.map((show, i) => {
-            console.log()
             return (
-                <TVShow key={i} name={show.nameInProgress} allowDelete={true} selectHandler={this.showSelected} deleteHandler={this.showDeleted} />
-            )
-        }
-        )
+                <TVShow key={i} name={show.name} allowDelete={true} selectHandler={this.showSelected} deleteHandler={this.showDeleted} />
+                )
+        })
     }
 
     render() {
+        console.log(this.state)
         return (
             <div>
                 <header>
@@ -108,6 +134,7 @@ class ManagePage extends Component {
                     </section>
                     <section className="show-form">
                         <h4>Create/Edit Show</h4>
+                        {this.showPostErrorMessage()}
                         <div>
                             <ul>
                                 <li>
@@ -118,7 +145,7 @@ class ManagePage extends Component {
                                 <li>
                                     <label>Rating:</label>
                                     <input type="text" value={this.state.ratingInProgress} onChange={this.handleRatingChange} />
-                                </li>
+                                 </li>
                                 <li>
                                     <label>Image URL:</label>
                                     <input type="text" value={this.state.urlInProgress} onChange={this.handleUrlChange} />
